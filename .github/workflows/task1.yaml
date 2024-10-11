@@ -1,0 +1,13 @@
+name: Task 1 - Run echo hello world
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run hello world
+        run: echo 'hello world'
