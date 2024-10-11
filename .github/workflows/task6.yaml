@@ -1,0 +1,13 @@
+name: Loging the person that made the latest commit
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  log-commit-autor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get commit author username
+        run: "echo 'The commit was made by: ${{ github.event.pusher.username }}'"
