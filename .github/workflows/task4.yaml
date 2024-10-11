@@ -1,0 +1,12 @@
+name: Task 4 - Simple Math Calculation
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  simple-math-calc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Calculation 2 + 2 # The log need to show the answer 4
+        run: "echo 2 + 2 is: $((2 + 2))"
