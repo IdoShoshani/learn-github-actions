@@ -1,0 +1,36 @@
+name: Task 5 - Notifying on issue creation
+
+on:
+  issues:
+    types: opened
+
+env:
+  ISSUE_URL: ${{ github.event.issue.commit_url }}
+
+jobs:
+  notifying-issue-creation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send mail on issue creation
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          # Server port, default 25:
+          server_port: 465
+          # Optional whether this connection use TLS (default is true if server_port is 465)
+          secure: true
+          # Optional (recommended) mail server username:
+          username: ${{secrets.MAIL_USERNAME}}
+          # Optional (recommended) mail server password:
+          password: ${{secrets.MAIL_PASSWORD}}
+          # Required mail subject:
+          subject: Github Actions job result
+          # Required recipients' addresses:
+          to: ${{secrets.RECIPIENT_EMAIL}}
+          # Required sender full name (address can be skipped):
+          from: ${{secrets.MAIL_USERNAME}} # <user@example.com>
+          # Optional plain body:
+          body: |
+            Issue: $ISSUE_URL
+            Creation date: ${{ github.event.issue.created_at }}
+            Was created successfully!
