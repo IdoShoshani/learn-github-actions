@@ -28,4 +28,4 @@ jobs:
           # Required sender full name (address can be skipped):
           from: ${{secrets.MAIL_USERNAME}} # <user@example.com>
           # Optional plain body:
-          body: Build job of ${{github.repository}} completed successfully!
+          body: push to ${{github.repository}} was completed successfully!
