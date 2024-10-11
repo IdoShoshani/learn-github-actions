@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get commit author username
-        run: "echo 'The commit was made by: ${{ github.event.pusher.username }}'"
+        run: "echo 'The commit was made by: ${{ github.event.commits.author }}'"
