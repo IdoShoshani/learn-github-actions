@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        node-version: [14, 16, 18]
+        node-version: [16, 18, 14]  # שינינו את הסדר כך שגרסה 16 תרוץ ראשונה
         
     steps:
       - uses: actions/checkout@v3
@@ -22,6 +22,8 @@ jobs:
           
       - name: Simulate tests
         run: |
+          echo "מתחיל טסט בגרסה ${{ matrix.node-version }}"
+          sleep 30  # נוסיף השהייה של 30 שניות
           if [ "${{ matrix.node-version }}" = "16" ]; then
             echo "מדמה כישלון בגרסה 16"
             exit 1
@@ -36,7 +38,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        node-version: [14, 16, 18]
+        node-version: [16, 18, 14]
         
     steps:
       - uses: actions/checkout@v3
@@ -47,8 +49,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
           
       - name: Simulate tests
-        continue-on-error: true  # נאפשר להמשיך גם אם יש כישלון
+        continue-on-error: true
         run: |
+          echo "מתחיל טסט בגרסה ${{ matrix.node-version }}"
+          sleep 30
           if [ "${{ matrix.node-version }}" = "16" ]; then
             echo "מדמה כישלון בגרסה 16"
             exit 1
@@ -63,7 +67,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [14, 16, 18]
+        node-version: [16, 18, 14]
         
     steps:
       - uses: actions/checkout@v3
@@ -75,6 +79,8 @@ jobs:
           
       - name: Simulate tests
         run: |
+          echo "מתחיל טסט בגרסה ${{ matrix.node-version }}"
+          sleep 30
           if [ "${{ matrix.node-version }}" = "16" ]; then
             echo "מדמה כישלון בגרסה 16"
             exit 1
