@@ -1,0 +1,83 @@
+name: Node.js Test Matrix Demo
+
+on: [push]
+
+jobs:
+  # תרחיש ראשון - fail-fast: true ללא continue-on-error
+  test-fail-fast:
+    name: Test with fail-fast
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        node-version: [14, 16, 18]
+        
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          
+      - name: Simulate tests
+        run: |
+          if [ "${{ matrix.node-version }}" = "16" ]; then
+            echo "מדמה כישלון בגרסה 16"
+            exit 1
+          else
+            echo "הטסטים עברו בהצלחה"
+          fi
+
+  # תרחיש שני - fail-fast: true עם continue-on-error
+  test-continue-on-error:
+    name: Test with continue-on-error
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        node-version: [14, 16, 18]
+        
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          
+      - name: Simulate tests
+        continue-on-error: true  # נאפשר להמשיך גם אם יש כישלון
+        run: |
+          if [ "${{ matrix.node-version }}" = "16" ]; then
+            echo "מדמה כישלון בגרסה 16"
+            exit 1
+          else
+            echo "הטסטים עברו בהצלחה"
+          fi
+
+  # תרחיש שלישי - fail-fast: false
+  test-no-fail-fast:
+    name: Test without fail-fast
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [14, 16, 18]
+        
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          
+      - name: Simulate tests
+        run: |
+          if [ "${{ matrix.node-version }}" = "16" ]; then
+            echo "מדמה כישלון בגרסה 16"
+            exit 1
+          else
+            echo "הטסטים עברו בהצלחה"
+          fi
